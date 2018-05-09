@@ -1,0 +1,136 @@
+<html ng-app="goFynd">
+   <head>
+      <title>Assignment</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+      <link rel="stylesheet" href="css/index.css">
+      
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+      
+   </head>
+   <body ng-controller="DisplayController as dispC">
+      
+      <div class="container-fluid">
+         <div class="row sample">
+            <div class="col-lg-4 col-md-4 col-xs-12">
+               <div class="card">
+                  <div class="card-head"> This will be the heading </div>
+                  <div class="card-body">
+                     <p>This is a sample card.</p>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas volutpat semper dapibus. Ut ut lacus vel nisi laoreet semper. Sed egestas eget libero in pretium. Praesent a lacus iaculis quam euismod aliquam ut sed felis. Nam mi quam, rutrum ac imperdiet non, rutrum sed quam. </p>
+                  
+                  
+                  </div>
+                  <div class="card-img">
+                     <img src="https://picsum.photos/400/200?image=0">
+                  
+                  </div>
+               </div>
+            
+            </div>
+         
+         </div>
+         
+         
+         <div class="row assign" >
+            
+            <div class="col-lg-4 col-md-4 col-xs-12" ng-repeat="image in dispC.images">
+               <div class="card">
+                  <div class="card-img">
+                     <div class="parentContainer">
+                        <div class="childContainer">
+                           <img ng-src="{{image.image_url}}">
+                           
+                        </div>
+                     </div>
+                     
+                     <div class="overlay">
+                        <div class="parentContainer">
+                        <div class="childContainer">
+                           <a href="" class="fa fa-trash" ng-click="dispC.deleteCard($index)"></a>
+                           <a href="" data-toggle="modal" data-target="#myModal" ng-click="dispC.setIndex($index)"><i class="fa fa-pencil" ></i> Edit</a>
+                           
+                        </div>
+                     </div>
+                     
+                     </div>
+                  
+                  </div>
+               </div>
+            
+            </div>
+            
+            
+         
+         </div>
+      
+      </div>
+      
+      <!-- Modal -->
+         <div id="myModal" class="modal fade" role="dialog">
+           <div class="modal-dialog modal-lg">
+
+             <!-- Modal content-->
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h2 class="modal-title">Edit Image</h2>
+               </div>
+               <div class="modal-body">
+                  <div class="container-fluid">
+                     <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12">
+                           <h4>Original image</h4>
+                           <div class="parentContainer">
+                              <div class="childContainer">
+                                 <img ng-src="{{dispC.images[dispC.index].image_url}}" >
+                                 
+
+                              </div>
+                           </div>
+                           
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-6 col-xs-12 newImg">
+                           <h4>New Image  <span class="error hide" style="color: red; font-size: 12px">Uploaded file is not an image</span></h4>
+                           
+                           <input type="file" id="newImgIp" class="btn btn-primary hide" onchange="angular.element($(this)).scope().handleImg(this)">
+                           <div class="parentContainer">
+                              <label for="newImgIp" class="childContainer">
+                                 
+                                    
+                                    <span>Upload new Img</span>
+                                    <div class="overlay1 parentContainer hide">
+                                       <div class="childContainer">
+                                          Upload new image
+                                          
+                                       </div>
+                                    </div>
+                                 
+                                 
+
+                              </label>
+                           </div>
+<!--                           <img  ng-src={{dispC.newImg}}>-->
+                        </div>
+                     </div>
+                  
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button class="btn btn-primary" ng-click="dispC.saveImg()">Save</button>
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+
+           </div>
+         </div>
+   
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="js/angular.min.js"></script>
+      <script src="js/index.js"></script>
+   </body>
+</html>

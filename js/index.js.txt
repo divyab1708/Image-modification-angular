@@ -1,0 +1,66 @@
+var app=angular.module("goFynd",[]);
+
+app.controller("DisplayController",["$http","$scope",function($http,$scope){
+  this.images=[];
+   this.index=0;
+   var pointer=this;
+   this.newImg="";
+   this.dummy="https://i2.wp.com/asvs.in/wp-content/uploads/2017/08/dummy.png?zoom=2&fit=399%2C275";
+   $http({
+      method: "GET",
+      url: "http://demo4126999.mockable.io/images"
+   }).then(function successCallback(response){
+      pointer.images=response.data;
+      
+   });
+   
+   this.deleteCard=function(ind){
+     pointer.images.splice(ind,1); 
+   };
+   
+   this.setIndex=function(ind){
+      pointer.index=ind;
+      $(".newImg img").remove();
+      
+      $(".newImg .childContainer span").removeClass("hide");
+      $(".newImg .overlay1").addClass("hide");
+   };
+   
+   	$scope.handleImg=function(input){
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					var img=document.createElement("img");
+
+					reader.onload = function (e) {
+                       
+                       pointer.newImg=e.target.result;
+                       //console.log(pointer.newImg);
+						$(img).attr('src', e.target.result);
+                       var ifImg=pointer.newImg.indexOf("image");
+                       if(ifImg < 0){
+                          $(".error").removeClass("hide");
+                          return;
+                       }
+                       else{
+                          $(".error").addClass("hide");
+                          
+                       }
+//						
+//						$log.log(img);
+//						/*document.getElementById("imgInp").appendChild(img);*/
+                        $(".newImg img").remove();
+						$(".newImg .childContainer span").addClass("hide");
+						$(".newImg .overlay1").removeClass("hide");
+						$(".newImg > .parentContainer > .childContainer").append(img);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			};
+   
+   this.saveImg=function(){
+      pointer.images[pointer.index].image_url=pointer.newImg;
+      $("#myModal").modal("hide");
+   }
+   
+}]);
